@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Scope;
 import org.springframework.validation.beanvalidation.MethodValidationPostProcessor;
+import prototype.configuration.DomainProperties;
 import prototype.configuration.LibvirtConnectionProperties;
 
 import java.util.Properties;
@@ -20,7 +21,7 @@ import java.util.Properties;
  * Main application configuration file
  */
 @SpringBootApplication
-@EnableConfigurationProperties(LibvirtConnectionProperties.class)
+@EnableConfigurationProperties({LibvirtConnectionProperties.class, DomainProperties.class})
 public class Application extends SpringBootServletInitializer {
 
     /**
@@ -51,6 +52,6 @@ public class Application extends SpringBootServletInitializer {
     @Bean
     @Scope(scopeName = "prototype")
     public Connect getConnection() throws LibvirtException {
-        return new Connect(properties.getType() + "//" + properties.getUri());
+        return new Connect(properties.getType() + "://" + properties.getUri());
     }
 }

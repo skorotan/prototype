@@ -1,0 +1,27 @@
+version: '3'
+services:
+  libvirt-connection-app:
+    build:
+      context: .
+      args:
+        debug_port: 1043
+    deploy:
+      resources:
+        limits:
+          memory: 640M
+      restart_policy:
+        condition: on-failure
+    ports:
+      - "8080:8080"
+      - "1043:1043"
+    environment:
+      - LIBVIRT_CONNECTION_TYPE=qemu+tcp
+      - LIBVIRT_CONNECTION_URI=192.168.237.128/system
+      - DISK_SOURCE_FILE=/vm/win7/win7.qcow2
+      - OS_SOURCE_ISO=/tmp/images/en_windows_7_ultimate_x64_dvd.iso
+      - OS_SOURCE_DRIVER=/tmp/images/virtio-win-0.1.126.iso
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "200k"
+        max-file: "10"

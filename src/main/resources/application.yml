@@ -1,0 +1,27 @@
+libvirt:
+  connection:
+    type: ${LIBVIRT_CONNECTION_TYPE}
+    uri: ${LIBVIRT_CONNECTION_URI}
+
+domain:
+  settings:
+    disk:
+      type: file
+      file: ${DISK_SOURCE_FILE}
+    driver:
+      type: qcow2
+      name: qemu
+    os:
+      source:
+        iso: ${OS_SOURCE_ISO}
+        driver: ${OS_SOURCE_DRIVER}
+    vnc:
+      connection:
+        autoport: yes
+        host: 0.0.0.0
+        port: 16509
+
+logging:
+  level:
+  - org.springframework.web=INFO
+  - prototype=DEBUG

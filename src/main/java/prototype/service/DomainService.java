@@ -5,9 +5,11 @@ import org.libvirt.Domain;
 import org.libvirt.LibvirtException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
+import prototype.configuration.DomainProperties;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -27,6 +29,9 @@ public class DomainService {
      * Logger
      */
     private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
+
+    @Autowired
+    private DomainProperties properties;
 
     /**
      * XML template for Windows VM
@@ -125,6 +130,15 @@ public class DomainService {
             domainData = domainData.replaceAll("&vmMac", "'" + mac + "'");
             domainData = domainData.replaceAll("&vmName", "vmName_" + mac);
             domainData = domainData.replaceAll("&vmUUID", String.valueOf(UUID.randomUUID()));
+            domainData = domainData.replaceAll("&diskType", properties.getDiskType());
+            domainData = domainData.replaceAll("&diskDriverName", properties.getDiskDriverName());
+            domainData = domainData.replaceAll("&diskDriverType", properties.getDiskDriverType());
+            domainData = domainData.replaceAll("&diskSourceFile", properties.getDiskFile());
+            domainData = domainData.replaceAll("&osSourceIso", properties.getOsSourceIso());
+            domainData = domainData.replaceAll("&osSourceDriverIso", properties.getOsSourceDriver());
+            domainData = domainData.replaceAll("&vncConnectionAutoport", properties.getVncConnectionAutoport());
+            domainData = domainData.replaceAll("&vncConnectionHost", properties.getVncConnectionHost());
+            domainData = domainData.replaceAll("&vncConnectionPort", properties.getVncConnectionPort());
             LOGGER.info("Method getDomainMac returned {} as domainData", domainData);
             return domainData;
         } catch (IOException e) {

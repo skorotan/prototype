@@ -18,20 +18,34 @@ public class LibvirtConnectionProperties {
      */
     private String uri;
 
-    private String diskType;
-
+    /**
+     * Getter for libvirt connection type
+     * @return connection type
+     */
     public String getType() {
         return type;
     }
 
-    public void setType(String type) {
-        this.type = type;
-    }
-
+    /**
+     * Getter for libvirt connection URI
+     * @return URI
+     */
     public String getUri() {
         return uri;
     }
 
+    /**
+     * Setter for type
+     * @param type type to set
+     */
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    /**
+     * Setter for uri
+     * @param uri uri to set
+     */
     public void setUri(String uri) {
         this.uri = uri;
     }
