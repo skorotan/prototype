@@ -8,18 +8,15 @@ domain:
     disk:
       type: file
       file: ${DISK_SOURCE_FILE}
-    driver:
-      type: qcow2
-      name: qemu
-    os:
-      source:
+      driver-type: qcow2
+      driver-name: qemu
+    osSource:
         iso: ${OS_SOURCE_ISO}
         driver: ${OS_SOURCE_DRIVER}
-    vnc:
-      connection:
-        autoport: yes
-        host: 0.0.0.0
-        port: 16509
+    vncConnection:
+      autoport: yes
+      host: 0.0.0.0
+      port: 16509
 
 logging:
   level:

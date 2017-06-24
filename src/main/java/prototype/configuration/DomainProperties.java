@@ -8,192 +8,252 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(prefix = "domain.settings")
 public class DomainProperties {
 
-    /**
-     * VM Disk type
-     */
-    private String diskType;
+    private Disk disk;
 
-    /**
-     * VM Disk source file
-     */
-    private String diskFile;
+    private OsSource osSource;
 
-    /**
-     * VM Disk driver type
-     */
-    private String diskDriverType;
+    private VncConnection vncConnection;
 
-    /**
-     * VM Disk driver name
-     */
-    private String diskDriverName;
+    public static class Disk {
+        /**
+         * VM Disk type
+         */
+        private String type;
 
-    /**
-     * Guest OS source iso image
-     */
-    private String osSourceIso;
+        /**
+         * VM Disk source file
+         */
+        private String file;
 
-    /**
-     * Guest OS driver iso image
-     */
-    private String osSourceDriver;
+        /**
+         * VM Disk driver type
+         */
+        private String driverType;
 
-    /**
-     * VNC connection autoport
-     */
-    private String vncConnectionAutoport;
+        /**
+         * VM Disk driver name
+         */
+        private String driverName;
 
-    /**
-     * VNC connection host
-     */
-    private String vncConnectionHost;
+        /**
+         * Getter for disk type
+         * @return vm disk type
+         */
+        public String getType() {
+            return type;
+        }
 
-    /**
-     * VNC connection port
-     */
-    private String vncConnectionPort;
+        /**
+         * Getter for disk source file
+         * @return disk source file location
+         */
+        public String getFile() {
+            return file;
+        }
 
-    /**
-     * Getter for disk type
-     * @return vm disk type
-     */
-    public String getDiskType() {
-        return diskType;
+        /**
+         * Getter for disk driver type
+         * @return disk driver type
+         */
+        public String getDriverType() {
+            return driverType;
+        }
+
+        /**
+         * Getter for disk driver name
+         * @return disk driver name
+         */
+        public String getDriverName() {
+            return driverName;
+        }
+
+        /**
+         * Setter for domain disk type
+         * @param type domain disk type to set
+         */
+        public void setType(String type) {
+            this.type = type;
+        }
+
+        /**
+         * Setter for domain disk file
+         * @param file domain disk file to set
+         */
+        public void setFile(String file) {
+            this.file = file;
+        }
+
+        /**
+         * Setter for domain disk driver type
+         * @param driverType domain disk driver type to set
+         */
+        public void setDriverType(String driverType) {
+            this.driverType = driverType;
+        }
+
+        /**
+         * Setter for domain disk driver name
+         * @param driverName domain disk driver name to set
+         */
+        public void setDriverName(String driverName) {
+            this.driverName = driverName;
+        }
+    }
+
+    public static class OsSource{
+        /**
+         * Guest OS source iso image
+         */
+        private String iso;
+
+        /**
+         * Guest OS driver iso image
+         */
+        private String driver;
+
+        /**
+         * Getter for guest OS source iso file location
+         * @return path to os source iso image location
+         */
+        public String getIso() {
+            return iso;
+        }
+
+        /**
+         * Getter for guest os source driver
+         * @return path to os driver iso image location
+         */
+        public String getDriver() {
+            return driver;
+        }
+
+        /**
+         * Setter for domain os source iso
+         * @param iso domain os source iso to set
+         */
+        public void setIso(String iso) {
+            this.iso = iso;
+        }
+
+        /**
+         * Setter for domain os source driver
+         * @param driver domain os source driver to set
+         */
+        public void setDriver(String driver) {
+            this.driver = driver;
+        }
+    }
+
+    public static class VncConnection {
+        /**
+         * VNC connection autoport
+         */
+        private String autoport;
+
+        /**
+         * VNC connection host
+         */
+        private String host;
+
+        /**
+         * VNC connection port
+         */
+        private String port;
+
+        /**
+         * Getter for vnc connection autoport property
+         * @return vnc connection autoport property
+         */
+        public String getAutoport() {
+            return autoport;
+        }
+
+        /**
+         * Getter for vnc connection host
+         * @return vnc connection host
+         */
+        public String getHost() {
+            return host;
+        }
+
+        /**
+         * Getter for vnc connection port
+         * @return vnc connection port
+         */
+        public String getPort() {
+            return port;
+        }
+
+        /**
+         * Setter for domain vnc connection autoport
+         * @param autoport domain vnc connection autoport to set
+         */
+        public void setAutoport(String autoport) {
+            this.autoport = autoport;
+        }
+
+        /**
+         * Setter for domain vnc connection host
+         * @param host domain vnc connection host to set
+         */
+        public void setHost(String host) {
+            this.host = host;
+        }
+
+        /**
+         * Setter for domain vnc connection port
+         * @param port domain vnc connection port to set
+         */
+        public void setPort(String port) {
+            this.port = port;
+        }
     }
 
     /**
-     * Getter for disk source file
-     * @return disk source file location
+     * Getter for disk related properties
+     * @return disk properties class
      */
-    public String getDiskFile() {
-        return diskFile;
+    public Disk getDisk() {
+        return disk;
     }
 
     /**
-     * Getter for disk driver type
-     * @return disk driver type
+     * Setter for disk related properties
+     * @param disk disk properties class
      */
-    public String getDiskDriverType() {
-        return diskDriverType;
+    public void setDisk(Disk disk) {
+        this.disk = disk;
     }
 
     /**
-     * Getter for disk driver name
-     * @return disk driver name
+     * Getter for os source related properties
+     * @return os source properties class
      */
-    public String getDiskDriverName() {
-        return diskDriverName;
+    public OsSource getOsSource() {
+        return osSource;
     }
 
     /**
-     * Getter for guest OS source iso file location
-     * @return path to os source iso image location
+     * Setter for os source related properties
+     * @param osSource os source properties class
      */
-    public String getOsSourceIso() {
-        return osSourceIso;
+    public void setOsSource(OsSource osSource) {
+        this.osSource = osSource;
     }
 
     /**
-     * Getter for guest os source driver
-     * @return path to os driver iso image location
+     * Getter for vnc connection related properties
+     * @return vnc connection properties class
      */
-    public String getOsSourceDriver() {
-        return osSourceDriver;
+    public VncConnection getVncConnection() {
+        return vncConnection;
     }
 
     /**
-     * Getter for vnc connection autoport property
-     * @return vnc connection autoport property
+     * Setter for vnc connection related properties
+     * @param vncConnection vnc connection properties class
      */
-    public String getVncConnectionAutoport() {
-        return vncConnectionAutoport;
-    }
-
-    /**
-     * Getter for vnc connection host
-     * @return vnc connection host
-     */
-    public String getVncConnectionHost() {
-        return vncConnectionHost;
-    }
-
-    /**
-     * Getter for vnc connection port
-     * @return vnc connection port
-     */
-    public String getVncConnectionPort() {
-        return vncConnectionPort;
-    }
-
-    /**
-     * Setter for domain disk type
-     * @param diskType domain disk type to set
-     */
-    public void setDiskType(String diskType) {
-        this.diskType = diskType;
-    }
-
-    /**
-     * Setter for domain disk file
-     * @param diskFile domain disk file to set
-     */
-    public void setDiskFile(String diskFile) {
-        this.diskFile = diskFile;
-    }
-
-    /**
-     * Setter for domain disk driver type
-     * @param diskDriverType domain disk driver type to set
-     */
-    public void setDiskDriverType(String diskDriverType) {
-        this.diskDriverType = diskDriverType;
-    }
-
-    /**
-     * Setter for domain disk driver name
-     * @param diskDriverName domain disk driver name to set
-     */
-    public void setDiskDriverName(String diskDriverName) {
-        this.diskDriverName = diskDriverName;
-    }
-
-    /**
-     * Setter for domain os source iso
-     * @param osSourceIso domain os source iso to set
-     */
-    public void setOsSourceIso(String osSourceIso) {
-        this.osSourceIso = osSourceIso;
-    }
-
-    /**
-     * Setter for domain os source driver
-     * @param osSourceDriver domain os source driver to set
-     */
-    public void setOsSourceDriver(String osSourceDriver) {
-        this.osSourceDriver = osSourceDriver;
-    }
-
-    /**
-     * Setter for domain vnc connection autoport
-     * @param vncConnectionAutoport domain vnc connection autoport to set
-     */
-    public void setVncConnectionAutoport(String vncConnectionAutoport) {
-        this.vncConnectionAutoport = vncConnectionAutoport;
-    }
-
-    /**
-     * Setter for domain vnc connection host
-     * @param vncConnectionHost domain vnc connection host to set
-     */
-    public void setVncConnectionHost(String vncConnectionHost) {
-        this.vncConnectionHost = vncConnectionHost;
-    }
-
-    /**
-     * Setter for domain vnc connection port
-     * @param vncConnectionPort domain vnc connection port to set
-     */
-    public void setVncConnectionPort(String vncConnectionPort) {
-        this.vncConnectionPort = vncConnectionPort;
+    public void setVncConnection(VncConnection vncConnection) {
+        this.vncConnection = vncConnection;
     }
 }

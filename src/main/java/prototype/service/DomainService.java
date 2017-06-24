@@ -127,18 +127,18 @@ public class DomainService {
         try {
             String domainData =  new BufferedReader(new InputStreamReader(res.getInputStream()))
                     .lines().parallel().collect(Collectors.joining("\n"));
-            domainData = domainData.replaceAll("&vmMac", "'" + mac + "'");
+            domainData = domainData.replaceAll("&vmMac", mac );
             domainData = domainData.replaceAll("&vmName", "vmName_" + mac);
             domainData = domainData.replaceAll("&vmUUID", String.valueOf(UUID.randomUUID()));
-            domainData = domainData.replaceAll("&diskType", properties.getDiskType());
-            domainData = domainData.replaceAll("&diskDriverName", properties.getDiskDriverName());
-            domainData = domainData.replaceAll("&diskDriverType", properties.getDiskDriverType());
-            domainData = domainData.replaceAll("&diskSourceFile", properties.getDiskFile());
-            domainData = domainData.replaceAll("&osSourceIso", properties.getOsSourceIso());
-            domainData = domainData.replaceAll("&osSourceDriverIso", properties.getOsSourceDriver());
-            domainData = domainData.replaceAll("&vncConnectionAutoport", properties.getVncConnectionAutoport());
-            domainData = domainData.replaceAll("&vncConnectionHost", properties.getVncConnectionHost());
-            domainData = domainData.replaceAll("&vncConnectionPort", properties.getVncConnectionPort());
+            domainData = domainData.replaceAll("&type", properties.getDisk().getType());
+            domainData = domainData.replaceAll("&diskSourceFile", properties.getDisk().getFile());
+            domainData = domainData.replaceAll("&driverName", properties.getDisk().getDriverName());
+            domainData = domainData.replaceAll("&driverType", properties.getDisk().getDriverType());
+            domainData = domainData.replaceAll("&osSourceIso", properties.getOsSource().getIso());
+            domainData = domainData.replaceAll("&osSourceDriverIso", properties.getOsSource().getDriver());
+            domainData = domainData.replaceAll("&vncConnectionAutoport", properties.getVncConnection().getAutoport());
+            domainData = domainData.replaceAll("&vncConnectionHost", properties.getVncConnection().getHost());
+            domainData = domainData.replaceAll("&vncConnectionPort", properties.getVncConnection().getPort());
             LOGGER.info("Method getDomainMac returned {} as domainData", domainData);
             return domainData;
         } catch (IOException e) {

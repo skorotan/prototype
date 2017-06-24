@@ -32,8 +32,8 @@
   </pm>
   <devices>
     <emulator>/usr/libexec/qemu-kvm</emulator>
-    <disk type='&diskType' device='disk'>
-      <driver name='&diskDriverName' type='&diskDriverType' cache='none'/>
+    <disk type='&type' device='disk'>
+      <driver name='&driverName' type='&driverType' cache='none'/>
       <source file='&diskSourceFile'/>
       <backingStore/>
       <target dev='vda' bus='virtio'/>
@@ -93,8 +93,8 @@
     <input type='keyboard' bus='ps2'>
       <alias name='input2'/>
     </input>
-    <graphics type='vnc' autoport='&vncConnectionAutoport' listen='&vncConnectionHost'>
-      <listen type='address' address='&vncConnectionHost'/>
+    <graphics type='vnc' autoport='&autoport' listen='&host'>
+      <listen type='address' address='&host'/>
     </graphics>
     <video>
       <model type='vga' vram='16384' heads='1' primary='yes'/>
