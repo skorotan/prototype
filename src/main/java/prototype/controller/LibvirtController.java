@@ -30,15 +30,19 @@ public class LibvirtController {
     /**
      * Regular expression to validate MAC-address
      */
-    private final static String MAC_REGEX = "^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$";
+    private final static String MAC_REGEX = "^([0-9A-Fa-f]{2}:){5}([0-9A-Fa-f]{2})$";
 
     /**
      * Message that should be shown in case of wrong MAC-address format
      */
     private final static String ERROR_MESSAGE = "Given mac address has wrong wrong format";
 
+    private final LibvirtService connection;
+
     @Autowired
-    private LibvirtService connection;
+    public LibvirtController(LibvirtService connection) {
+        this.connection = connection;
+    }
 
     @GetMapping(path = "/api/vm/start/{macAddress}")
     @ResponseBody

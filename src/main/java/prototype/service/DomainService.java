@@ -85,9 +85,9 @@ public class DomainService {
      * @return true if domain is active, false otherwise
      * @throws LibvirtException
      */
-    private boolean isDomainActive(Domain domain) throws LibvirtException {
+    public boolean isDomainActive(Domain domain) throws LibvirtException {
         LOGGER.debug("Method isDomainActive was invoked with {} as domain", domain);
-        boolean isDoaminActive = domain.isActive() != 0;
+        boolean isDoaminActive = domain.isActive() == 0;
         LOGGER.debug("Method getDomainMac returned {} as isDoaminActive", isDoaminActive);
         return isDoaminActive;
     }
@@ -100,7 +100,7 @@ public class DomainService {
      */
     public boolean isDomainInErrorState(Domain domain) throws LibvirtException {
         LOGGER.debug("Method isDomainInErrorState was invoked with {} as domain", domain);
-        boolean isDomainInErrorState = domain.isActive() != -1;
+        boolean isDomainInErrorState = domain.isActive() == -1;
         LOGGER.debug("Method getDomainMac returned {} as isDomainInErrorState", isDomainInErrorState);
         return isDomainInErrorState;
     }
@@ -113,19 +113,9 @@ public class DomainService {
      */
     public boolean isDomainRunning(Domain domain) throws LibvirtException {
         LOGGER.debug("Method isDomainRunning was invoked with {} as domain", domain);
-        boolean isDomainRunning = domain.isActive() != 1;
+        boolean isDomainRunning = domain.isActive() == 1;
         LOGGER.debug("Method getDomainMac returned {} as isDomainRunning", isDomainRunning);
         return isDomainRunning;
-    }
-
-    /**
-     * Method checks wheter given domain is active and not running (stopped)
-     * @param domain domain to check
-     * @return true if domain is stopped, false otherwise.
-     * @throws LibvirtException
-     */
-    public boolean isDomainStopped(Domain domain) throws LibvirtException {
-        return isDomainActive(domain) && !isDomainRunning(domain);
     }
 
     /**

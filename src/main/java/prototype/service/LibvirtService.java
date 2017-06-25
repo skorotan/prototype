@@ -23,8 +23,12 @@ public abstract class LibvirtService {
     /**
      * Domain service
      */
+    private final DomainService domainService;
+
     @Autowired
-    private DomainService domainService;
+    public LibvirtService(DomainService domainService) {
+        this.domainService = domainService;
+    }
 
     /**
      * Method provides sequence of actions to start windows vm with given MAC-address
@@ -42,7 +46,7 @@ public abstract class LibvirtService {
                 conn.domainCreateXML(domainService.prepareDomainData(macAddress), 0);
                 status = "Booting";
             } else {
-                if (domainService.isDomainStopped(domain)) {
+                if (domainService.isDomainActive(domain)) {
                     domain.create();
                     status = "Started";
                 } else if (domainService.isDomainRunning(domain)) {
@@ -75,7 +79,7 @@ public abstract class LibvirtService {
             if(domain == null){
                 status = "Not exist";
             } else {
-                if (domainService.isDomainStopped(domain)) {
+                if (domainService.isDomainActive(domain)) {
                     status = "Stopped";
                 } else if (domainService.isDomainRunning(domain)) {
                     status = "Running";
@@ -103,15 +107,14 @@ public abstract class LibvirtService {
         Connect conn = getConnection();
         String status = null;
         try {
-            conn = new Connect("qemu+tcp://192.168.237.128/system");
             Domain domain = domainService.getDomainByMac(conn, macAddress);
             if(domain == null){
                 status = "Not exist";
             } else {
-                if (domainService.isDomainStopped(domain)) {
+                if (domainService.isDomainActive(domain)) {
                     status = "Already stopped";
                 } else if (domainService.isDomainRunning(domain)) {
-                    domain.destroy();
+                    domain.shutdown();
                     status = "Command to stop domain was sent";
                 } else if (domainService.isDomainInErrorState(domain)) {
                     status = "In error state";
