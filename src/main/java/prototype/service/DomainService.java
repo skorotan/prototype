@@ -56,6 +56,7 @@ public class DomainService {
             LOGGER.debug("MAC-address for current domain is {} ", domainMac);
             if(mac.equalsIgnoreCase(domainMac)){
                 domain = currentDomain;
+                break;
             }
         }
         LOGGER.debug("Method getDomainByMac returned {} as domain", domain);
@@ -68,7 +69,7 @@ public class DomainService {
      * @return MAC-address
      * @throws LibvirtException
      */
-    public String getDomainMac(Domain domain) throws LibvirtException {
+    private String getDomainMac(Domain domain) throws LibvirtException {
         LOGGER.debug("Method getDomainMac was invoked with {} as domain", domain);
         String domainDescr = domain.getXMLDesc(0);
         Pattern p = Pattern.compile("<mac address='(.+)'/>");
@@ -84,7 +85,7 @@ public class DomainService {
      * @return true if domain is active, false otherwise
      * @throws LibvirtException
      */
-    public boolean isDomainActive(Domain domain) throws LibvirtException {
+    private boolean isDomainActive(Domain domain) throws LibvirtException {
         LOGGER.debug("Method isDomainActive was invoked with {} as domain", domain);
         boolean isDoaminActive = domain.isActive() != 0;
         LOGGER.debug("Method getDomainMac returned {} as isDoaminActive", isDoaminActive);
@@ -115,6 +116,16 @@ public class DomainService {
         boolean isDomainRunning = domain.isActive() != 1;
         LOGGER.debug("Method getDomainMac returned {} as isDomainRunning", isDomainRunning);
         return isDomainRunning;
+    }
+
+    /**
+     * Method checks wheter given domain is active and not running (stopped)
+     * @param domain domain to check
+     * @return true if domain is stopped, false otherwise.
+     * @throws LibvirtException
+     */
+    public boolean isDomainStopped(Domain domain) throws LibvirtException {
+        return isDomainActive(domain) && !isDomainRunning(domain);
     }
 
     /**

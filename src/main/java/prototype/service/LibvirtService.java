@@ -24,7 +24,7 @@ public abstract class LibvirtService {
      * Domain service
      */
     @Autowired
-    private DomainService service;
+    private DomainService domainService;
 
     /**
      * Method provides sequence of actions to start windows vm with given MAC-address
@@ -37,18 +37,20 @@ public abstract class LibvirtService {
         String status = null;
         Connect conn = getConnection();
         try {
-            Domain domain = service.getDomainByMac(conn, macAddress);
+            Domain domain = domainService.getDomainByMac(conn, macAddress);
             if(domain == null){
-                conn.domainCreateXML(service.prepareDomainData(macAddress), 0);
+                conn.domainCreateXML(domainService.prepareDomainData(macAddress), 0);
                 status = "Booting";
             } else {
-                if (service.isDomainActive(domain) && !service.isDomainRunning(domain)) {
+                if (domainService.isDomainStopped(domain)) {
                     domain.create();
                     status = "Started";
-                } else if (service.isDomainRunning(domain)) {
+                } else if (domainService.isDomainRunning(domain)) {
                     status = "Running";
-                } else if (service.isDomainInErrorState(domain)) {
+                } else if (domainService.isDomainInErrorState(domain)) {
                     status = "In error state";
+                } else {
+                    status = "Not supported";
                 }
             }
         } finally {
@@ -69,16 +71,18 @@ public abstract class LibvirtService {
         String status = null;
         Connect conn = getConnection();
         try {
-            Domain domain = service.getDomainByMac(conn, macAddress);
+            Domain domain = domainService.getDomainByMac(conn, macAddress);
             if(domain == null){
                 status = "Not exist";
             } else {
-                if (service.isDomainActive(domain) && !service.isDomainRunning(domain)) {
+                if (domainService.isDomainStopped(domain)) {
                     status = "Stopped";
-                } else if (service.isDomainRunning(domain)) {
+                } else if (domainService.isDomainRunning(domain)) {
                     status = "Running";
-                } else if (service.isDomainInErrorState(domain)) {
+                } else if (domainService.isDomainInErrorState(domain)) {
                     status = "In error state";
+                } else {
+                    status = "Not supported";
                 }
             }
         } finally {
@@ -100,17 +104,19 @@ public abstract class LibvirtService {
         String status = null;
         try {
             conn = new Connect("qemu+tcp://192.168.237.128/system");
-            Domain domain = service.getDomainByMac(conn, macAddress);
+            Domain domain = domainService.getDomainByMac(conn, macAddress);
             if(domain == null){
                 status = "Not exist";
             } else {
-                if (service.isDomainActive(domain) && !service.isDomainRunning(domain)) {
+                if (domainService.isDomainStopped(domain)) {
                     status = "Already stopped";
-                } else if (service.isDomainRunning(domain)) {
+                } else if (domainService.isDomainRunning(domain)) {
                     domain.destroy();
                     status = "Command to stop domain was sent";
-                } else if (service.isDomainInErrorState(domain)) {
+                } else if (domainService.isDomainInErrorState(domain)) {
                     status = "In error state";
+                } else {
+                    status = "Not supported";
                 }
             }
         } finally {
@@ -121,7 +127,7 @@ public abstract class LibvirtService {
     }
 
     /**
-     * Method that provides appropriate injection of Connection request-scoped bean
+     * Method that provides appropriate injection of Connection prototype-scoped bean
      * @return Connection bean
      */
     @Lookup

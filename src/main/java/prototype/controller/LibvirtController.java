@@ -1,4 +1,4 @@
-package prototype.web;
+package prototype.controller;
 
 import org.libvirt.LibvirtException;
 import org.slf4j.Logger;
@@ -57,10 +57,10 @@ public class LibvirtController {
     public Response status(@PathVariable
                              @Pattern(regexp = MAC_REGEX,
                                       message = ERROR_MESSAGE) String macAddress) throws LibvirtException {
-        LOGGER.info("Method start was invoked with {} as macAddress parameter", macAddress);
+        LOGGER.info("Method status was invoked with {} as macAddress parameter", macAddress);
         String status =  connection.status(macAddress);
         Response response =  new ResponseOk(status);
-        LOGGER.info("Method start returned {} as response", response);
+        LOGGER.info("Method status returned {} as response", response);
         return response;
     }
 
@@ -69,10 +69,10 @@ public class LibvirtController {
     public Response stop(@PathVariable
                          @Pattern(regexp = MAC_REGEX,
                                   message = ERROR_MESSAGE) String macAddress) throws LibvirtException {
-        LOGGER.info("Method start was invoked with {} as macAddress parameter", macAddress);
+        LOGGER.info("Method stop was invoked with {} as macAddress parameter", macAddress);
         String status =  connection.stopVm(macAddress);
         Response response =  new ResponseOk(status);
-        LOGGER.info("Method start returned {} as response", response);
+        LOGGER.info("Method stop returned {} as response", response);
         return response;
     }
 }
