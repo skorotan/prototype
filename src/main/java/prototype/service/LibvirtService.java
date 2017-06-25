@@ -46,7 +46,7 @@ public abstract class LibvirtService {
                 conn.domainCreateXML(domainService.prepareDomainData(macAddress), 0);
                 status = "Booting";
             } else {
-                if (domainService.isDomainActive(domain)) {
+                if (domainService.isDomainStopped(domain)) {
                     domain.create();
                     status = "Started";
                 } else if (domainService.isDomainRunning(domain)) {
@@ -79,7 +79,7 @@ public abstract class LibvirtService {
             if(domain == null){
                 status = "Not exist";
             } else {
-                if (domainService.isDomainActive(domain)) {
+                if (domainService.isDomainStopped(domain)) {
                     status = "Stopped";
                 } else if (domainService.isDomainRunning(domain)) {
                     status = "Running";
@@ -111,7 +111,7 @@ public abstract class LibvirtService {
             if(domain == null){
                 status = "Not exist";
             } else {
-                if (domainService.isDomainActive(domain)) {
+                if (domainService.isDomainStopped(domain)) {
                     status = "Already stopped";
                 } else if (domainService.isDomainRunning(domain)) {
                     domain.shutdown();

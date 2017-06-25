@@ -45,7 +45,7 @@ public class LibvirtServiceTest {
     @Test
     public void startVm_withStoppedDomain() throws Exception {
         when(domainService.getDomainByMac(connect, "50-fa-34-a2-4a-48")).thenReturn(domain);
-        when(domainService.isDomainActive(domain)).thenReturn(true);
+        when(domainService.isDomainStopped(domain)).thenReturn(true);
 
         String response = libvirtService.startVm("50-fa-34-a2-4a-48");
 
@@ -64,7 +64,7 @@ public class LibvirtServiceTest {
     @Test
     public void startVm_withRunningDomain() throws Exception {
         when(domainService.getDomainByMac(connect, "50-fa-34-a2-4a-48")).thenReturn(domain);
-        when(domainService.isDomainActive(domain)).thenReturn(false);
+        when(domainService.isDomainStopped(domain)).thenReturn(false);
         when(domainService.isDomainRunning(domain)).thenReturn(true);
 
         String response = libvirtService.startVm("50-fa-34-a2-4a-48");
@@ -75,7 +75,7 @@ public class LibvirtServiceTest {
     @Test
     public void startVm_withInErrorStateDomain() throws Exception {
         when(domainService.getDomainByMac(connect, "50-fa-34-a2-4a-48")).thenReturn(domain);
-        when(domainService.isDomainActive(domain)).thenReturn(false);
+        when(domainService.isDomainStopped(domain)).thenReturn(false);
         when(domainService.isDomainRunning(domain)).thenReturn(false);
         when(domainService.isDomainInErrorState(domain)).thenReturn(true);
 
@@ -87,7 +87,7 @@ public class LibvirtServiceTest {
     @Test
     public void startVm_withNotSupportedDomain() throws Exception {
         when(domainService.getDomainByMac(connect, "50-fa-34-a2-4a-48")).thenReturn(domain);
-        when(domainService.isDomainActive(domain)).thenReturn(false);
+        when(domainService.isDomainStopped(domain)).thenReturn(false);
         when(domainService.isDomainRunning(domain)).thenReturn(false);
         when(domainService.isDomainInErrorState(domain)).thenReturn(false);
 
@@ -99,7 +99,7 @@ public class LibvirtServiceTest {
     @Test
     public void status_withStoppedDomain() throws Exception {
         when(domainService.getDomainByMac(connect, "50-fa-34-a2-4a-48")).thenReturn(domain);
-        when(domainService.isDomainActive(domain)).thenReturn(true);
+        when(domainService.isDomainStopped(domain)).thenReturn(true);
 
         String response = libvirtService.status("50-fa-34-a2-4a-48");
 
@@ -118,7 +118,7 @@ public class LibvirtServiceTest {
     @Test
     public void status_withRunningDomain() throws Exception {
         when(domainService.getDomainByMac(connect, "50-fa-34-a2-4a-48")).thenReturn(domain);
-        when(domainService.isDomainActive(domain)).thenReturn(false);
+        when(domainService.isDomainStopped(domain)).thenReturn(false);
         when(domainService.isDomainRunning(domain)).thenReturn(true);
 
         String response = libvirtService.status("50-fa-34-a2-4a-48");
@@ -129,7 +129,7 @@ public class LibvirtServiceTest {
     @Test
     public void status_withInErrorStateDomain() throws Exception {
         when(domainService.getDomainByMac(connect, "50-fa-34-a2-4a-48")).thenReturn(domain);
-        when(domainService.isDomainActive(domain)).thenReturn(false);
+        when(domainService.isDomainStopped(domain)).thenReturn(false);
         when(domainService.isDomainRunning(domain)).thenReturn(false);
         when(domainService.isDomainInErrorState(domain)).thenReturn(true);
 
@@ -141,7 +141,7 @@ public class LibvirtServiceTest {
     @Test
     public void status_withNotSupportedDomain() throws Exception {
         when(domainService.getDomainByMac(connect, "50-fa-34-a2-4a-48")).thenReturn(domain);
-        when(domainService.isDomainActive(domain)).thenReturn(false);
+        when(domainService.isDomainStopped(domain)).thenReturn(false);
         when(domainService.isDomainRunning(domain)).thenReturn(false);
         when(domainService.isDomainInErrorState(domain)).thenReturn(false);
 
@@ -153,7 +153,7 @@ public class LibvirtServiceTest {
     @Test
     public void stopVm_withStoppedDomain() throws Exception {
         when(domainService.getDomainByMac(connect, "50-fa-34-a2-4a-48")).thenReturn(domain);
-        when(domainService.isDomainActive(domain)).thenReturn(true);
+        when(domainService.isDomainStopped(domain)).thenReturn(true);
 
         String response = libvirtService.stopVm("50-fa-34-a2-4a-48");
 
@@ -172,7 +172,7 @@ public class LibvirtServiceTest {
     @Test
     public void stopVm_withRunningDomain() throws Exception {
         when(domainService.getDomainByMac(connect, "50-fa-34-a2-4a-48")).thenReturn(domain);
-        when(domainService.isDomainActive(domain)).thenReturn(false);
+        when(domainService.isDomainStopped(domain)).thenReturn(false);
         when(domainService.isDomainRunning(domain)).thenReturn(true);
 
         String response = libvirtService.stopVm("50-fa-34-a2-4a-48");
@@ -183,7 +183,7 @@ public class LibvirtServiceTest {
     @Test
     public void stopVm_withInErrorStateDomain() throws Exception {
         when(domainService.getDomainByMac(connect, "50-fa-34-a2-4a-48")).thenReturn(domain);
-        when(domainService.isDomainActive(domain)).thenReturn(false);
+        when(domainService.isDomainStopped(domain)).thenReturn(false);
         when(domainService.isDomainRunning(domain)).thenReturn(false);
         when(domainService.isDomainInErrorState(domain)).thenReturn(true);
 
@@ -195,7 +195,7 @@ public class LibvirtServiceTest {
     @Test
     public void stopVm_withNotSupportedDomain() throws Exception {
         when(domainService.getDomainByMac(connect, "50-fa-34-a2-4a-48")).thenReturn(domain);
-        when(domainService.isDomainActive(domain)).thenReturn(false);
+        when(domainService.isDomainStopped(domain)).thenReturn(false);
         when(domainService.isDomainRunning(domain)).thenReturn(false);
         when(domainService.isDomainInErrorState(domain)).thenReturn(false);
 

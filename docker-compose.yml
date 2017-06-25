@@ -1,6 +1,7 @@
 version: '3'
 services:
   libvirt-connection-app:
+    image: prototype
     build:
       context: .
       args:

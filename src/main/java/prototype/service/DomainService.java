@@ -80,13 +80,13 @@ public class DomainService {
     }
 
     /**
-     * Method checks whether the given domain is active
+     * Method checks whether the given domain is stopped
      * @param domain domain to check
-     * @return true if domain is active, false otherwise
+     * @return true if domain is stopped, false otherwise
      * @throws LibvirtException
      */
-    public boolean isDomainActive(Domain domain) throws LibvirtException {
-        LOGGER.debug("Method isDomainActive was invoked with {} as domain", domain);
+    public boolean isDomainStopped(Domain domain) throws LibvirtException {
+        LOGGER.debug("Method isDomainStopped was invoked with {} as domain", domain);
         boolean isDoaminActive = domain.isActive() == 0;
         LOGGER.debug("Method getDomainMac returned {} as isDoaminActive", isDoaminActive);
         return isDoaminActive;
