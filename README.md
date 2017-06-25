@@ -5,7 +5,7 @@ Controller is built on Java and uses Docker, Docker-compose and Spring Boot as w
 
 To build Dockerimage please use the following commands:
 1. Build project: execute `mvn clean install` in directory that contains pom.xml
-2. Create docker image: execute `docker build -t prototype --build-args debug_port=1043 .` in directory that contains Dockerfile
+2. Create docker image: execute `docker build -t prototype --build-arg debug_port=1043 .` in directory that contains Dockerfile
 
 To deploy application you can execute following commands:
 1. Deploy docker container: execute `docker run -p 8080:8080 -p 1043:1043 prototype`
