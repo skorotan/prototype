@@ -14,4 +14,4 @@ To deploy application you can execute following commands:
 Before execute this command please make sure that docker image with prototype name is existed. Note that this type of deployment aware about container memory consumption.
 
 
-Environment section can be changed when deploying application via `docker-compose` or `docker stack deploy`. Environment section gives opportunity to change location of image with guest os, specify port and connection type, host and port to connect to libvirt daemon and so on.
+Environment section can be changed when deploying application via `docker-compose` or `docker stack deploy`. Environment section gives opportunity to change location of image with guest os, specify connection type, host and port to connect to libvirt daemon and so on.
