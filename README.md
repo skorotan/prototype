@@ -12,3 +12,6 @@ To deploy application you can execute following commands:
 2. **Or use docker-compose command:** execute `docker-compose up -d libvirt-connection-app` (This command can be executed even without building docker image)
 3. If you want to deploy this application on cluster docker environment please use: `docker stack deploy -c docker-compose.yml prototype`. 
 Before execute this command please make sure that docker image with prototype name is existed. Note that this type of deployment aware about container memory consumption.
+
+
+Environment section can be changed when deploying application via `docker-compose` or `docker stack deploy`. Environment section gives opportunity to change location of image with guest os, specify port and connection type, host and port to connect to libvirt daemon and so on.
